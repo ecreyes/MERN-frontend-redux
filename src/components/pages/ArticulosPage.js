@@ -11,7 +11,7 @@ class ArticulosPage extends React.Component {
     render() {
         const articulos = this.props.articulos;
         const articulosItems = articulos.items.map((articulo) =>
-            <Articulo key={articulo._id} articulo={articulo} onEliminarClick={this.handleEliminarArticulo} />
+            <Articulo key={articulo._id} articulo={articulo} />
         );
         if (articulos.error) {
             return (
