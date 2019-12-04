@@ -9,10 +9,12 @@ import { getArticulos } from '../requests/ArticuloService';
 */
 export const getArticulosAction = () => (dispatch) => {
     dispatch({ type: REQUEST_ARTICULOS });
-    
-    return getArticulos().then(res=>{
-        dispatch({type:RECEIVE_ARTICULOS,payload:res.data});
-    }).catch(error=>{
-        dispatch({type:FAILURE_ARTICULOS,error});
-    });
+    //timeout simulador para añadir retardo
+    setTimeout(()=>{
+        return getArticulos().then(res=>{
+            dispatch({type:RECEIVE_ARTICULOS,payload:res.data});
+        }).catch(error=>{
+            dispatch({type:FAILURE_ARTICULOS,error});
+        });
+    },1000);
 };

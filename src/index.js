@@ -1,11 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+
+//bootstrap
+import 'bootstrap/dist/css/bootstrap.css';
+import 'bootstrap/dist/js/bootstrap.bundle.min';
+
+//redux
 import { Provider } from 'react-redux';
 import store from './store';
-import App from './components/App';
 
-import {getArticulosAction} from './actions/articulo';
-store.dispatch(getArticulosAction("REQUEST_ARTICULOS"));
+//componente principal
+import App from './components/App';
 
 ReactDOM.render(<Provider store={store}>
     <App />
