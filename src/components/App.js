@@ -33,7 +33,7 @@ class App extends React.Component {
 						<Route exact path="/articulos/edit/:id" component={ArticulosEditPage} />
 						<Route exact path="/articulos/:id" component={ArticuloShowPage} />
 						<Route exact path="/contacto" component={ContactoPage} />
-						<Route exact path="/" component={InicioPage} />
+						<Route  path="/" component={InicioPage} />
 					</Switch>
 				</div>
 			</Router>
