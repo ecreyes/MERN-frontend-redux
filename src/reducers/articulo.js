@@ -1,13 +1,14 @@
 import {
-    REQUEST_ARTICULOS, RECEIVE_ARTICULOS, FAILURE_ARTICULOS,
-    CREATE_ARTICULO_REQUEST, CREATE_ARTICULO_SUCCESS,
-    DELETE_ARTICULO_REQUEST, DELETE_ARTICULO_SUCCESS,
-    UPDATE_ARTICULO_REQUEST, UPDATE_ARTICULO_SUCCESS
+    ACTION_REQUEST,
+    RECEIVE_ARTICULOS, FAILURE_ARTICULOS,
+    CREATE_ARTICULO_SUCCESS,
+    DELETE_ARTICULO_SUCCESS,
+    UPDATE_ARTICULO_SUCCESS
 } from '../actions/index';
 
 export const articulos = (state = { isFetching: false, items: [], error: false, msgError: "" }, action) => {
     switch (action.type) {
-        case (REQUEST_ARTICULOS || CREATE_ARTICULO_REQUEST || DELETE_ARTICULO_REQUEST || UPDATE_ARTICULO_REQUEST):
+        case ACTION_REQUEST:
             return { ...state, isFetching: true };
         case RECEIVE_ARTICULOS:
             return { ...state, isFetching: false, items: action.payload.articulos, error: false, msgError: "" };

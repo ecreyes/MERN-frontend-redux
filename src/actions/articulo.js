@@ -1,10 +1,11 @@
 import {
-    REQUEST_ARTICULOS, RECEIVE_ARTICULOS, FAILURE_ARTICULOS,
-    CREATE_ARTICULO_REQUEST, CREATE_ARTICULO_SUCCESS, CREATE_ARTICULO_FAILURE,
-    DELETE_ARTICULO_REQUEST, DELETE_ARTICULO_SUCCESS, DELETE_ARTICULO_FAILURE,
-    UPDATE_ARTICULO_REQUEST, UPDATE_ARTICULO_SUCCESS, UPDATE_ARTICULO_FAILURE
+    ACTION_REQUEST,
+    RECEIVE_ARTICULOS, FAILURE_ARTICULOS,
+    CREATE_ARTICULO_SUCCESS, CREATE_ARTICULO_FAILURE,
+    DELETE_ARTICULO_SUCCESS, DELETE_ARTICULO_FAILURE,
+    UPDATE_ARTICULO_SUCCESS, UPDATE_ARTICULO_FAILURE
 } from './index';
-import { getArticulos, addArticulo,deleteArticulo,updateArticulo } from '../requests/ArticuloService';
+import { getArticulos, addArticulo, deleteArticulo, updateArticulo } from '../requests/ArticuloService';
 
 /*
     ()=>(dispatch)=>{}
@@ -13,7 +14,7 @@ import { getArticulos, addArticulo,deleteArticulo,updateArticulo } from '../requ
     dispatch y hace lo que esta dentro de llaves
 */
 export const getArticulosAction = () => (dispatch) => {
-    dispatch({ type: REQUEST_ARTICULOS });
+    dispatch({ type: ACTION_REQUEST });
     //timeout simulador para añadir retardo
     setTimeout(() => {
         return getArticulos().then(res => {
@@ -26,7 +27,7 @@ export const getArticulosAction = () => (dispatch) => {
 
 
 export const createArticuloAction = (articulo) => (dispatch) => {
-    dispatch({ type: CREATE_ARTICULO_REQUEST });
+    dispatch({ type: ACTION_REQUEST });
 
     return addArticulo(articulo).then(res => {
         dispatch({ type: CREATE_ARTICULO_SUCCESS, payload: res.data.articulo });
@@ -36,7 +37,7 @@ export const createArticuloAction = (articulo) => (dispatch) => {
 };
 
 export const deleteArticuloAction = (id) => (dispatch) => {
-    dispatch({ type: DELETE_ARTICULO_REQUEST });
+    dispatch({ type: ACTION_REQUEST });
 
     return deleteArticulo(id).then(res => {
         dispatch({ type: DELETE_ARTICULO_SUCCESS, payload: res.data.articulo._id });
@@ -46,10 +47,10 @@ export const deleteArticuloAction = (id) => (dispatch) => {
 };
 
 
-export const updateArticuloAction = (id,articulo) => (dispatch) => {
-    dispatch({ type: UPDATE_ARTICULO_REQUEST });
+export const updateArticuloAction = (id, articulo) => (dispatch) => {
+    dispatch({ type: ACTION_REQUEST });
 
-    return updateArticulo(id,articulo).then(res => {
+    return updateArticulo(id, articulo).then(res => {
         dispatch({ type: UPDATE_ARTICULO_SUCCESS, payload: res.data.articulo });
     }).catch(error => {
         dispatch({ type: UPDATE_ARTICULO_FAILURE, error })
