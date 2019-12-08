@@ -1,7 +1,7 @@
 import React from 'react';
-import {withRouter} from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import { connect } from 'react-redux';
-import { createArticuloAction } from '../actions/articulo';
+import { createArticuloAction, updateArticuloAction } from '../actions/articulo';
 
 class ArticuloForm extends React.Component {
     constructor(props) {
@@ -14,6 +14,37 @@ class ArticuloForm extends React.Component {
         this.handleCuerpoChange = this.handleCuerpoChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
+
+    componentDidMount(){
+        if(this.props.form==="update"){
+            const id = this.props.match.params.id;
+            const articulos = this.props.articulos;
+            const selectArticulo = articulos.find(articulo => articulo._id === id);
+            if (selectArticulo) {
+                this.setState({
+                    titulo: selectArticulo.titulo,
+                    cuerpo: selectArticulo.cuerpo
+                });
+            }
+        }        
+    }
+
+    componentDidUpdate(prevProps) {
+        if (this.props.form === "update") {
+            if (this.props.articulos !== prevProps.articulos) {
+                const id = this.props.match.params.id;
+                const articulos = this.props.articulos;
+                const selectArticulo = articulos.find(articulo => articulo._id === id);
+                if (selectArticulo) {
+                    this.setState({
+                        titulo: selectArticulo.titulo,
+                        cuerpo: selectArticulo.cuerpo
+                    });
+                }
+            }
+        }
+    }
+
 
     handleTituloChange(e) {
         this.setState({
@@ -29,7 +60,12 @@ class ArticuloForm extends React.Component {
 
     handleSubmit(e) {
         e.preventDefault();
-        this.props.dispatch(createArticuloAction(this.state));
+        if (this.props.form === "update") {
+            const id = this.props.match.params.id;
+            this.props.dispatch(updateArticuloAction(id, this.state));
+        } else {
+            this.props.dispatch(createArticuloAction(this.state));
+        }
         this.props.history.push('/articulos');
         this.setState({
             titulo: "",
@@ -58,5 +94,11 @@ class ArticuloForm extends React.Component {
     }
 }
 
-ArticuloForm = connect()(ArticuloForm);
+const mapStateToProps = (state) => {
+    return {
+        articulos: state.articulos.items
+    };
+}
+
+ArticuloForm = connect(mapStateToProps)(ArticuloForm);
 export default withRouter(ArticuloForm);

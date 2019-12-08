@@ -12,6 +12,7 @@ class Articulo extends React.Component {
                 <h5 className="card-title">{titulo}</h5>
                 <p className="card-text">{cuerpo}</p>
                 <Link className="btn btn-primary" to={"/articulos/"+_id}>Ver</Link>
+                <Link className="btn btn-info" to={"/articulos/edit/"+_id}>Editar</Link>
                 <button onClick={()=>deleteClick(_id)} className="btn btn-danger">Eliminar</button>
             </div>
         );
