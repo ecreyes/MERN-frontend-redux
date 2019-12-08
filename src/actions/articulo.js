@@ -1,5 +1,9 @@
-import { REQUEST_ARTICULOS, RECEIVE_ARTICULOS, FAILURE_ARTICULOS, CREATE_ARTICULO_REQUEST, CREATE_ARTICULO_FAILURE, CREATE_ARTICULO_SUCCESS } from './index';
-import { getArticulos, addArticulo } from '../requests/ArticuloService';
+import {
+    REQUEST_ARTICULOS, RECEIVE_ARTICULOS, FAILURE_ARTICULOS,
+    CREATE_ARTICULO_REQUEST, CREATE_ARTICULO_SUCCESS, CREATE_ARTICULO_FAILURE,
+    DELETE_ARTICULO_REQUEST, DELETE_ARTICULO_SUCCESS, DELETE_ARTICULO_FAILURE
+} from './index';
+import { getArticulos, addArticulo,deleteArticulo } from '../requests/ArticuloService';
 
 /*
     ()=>(dispatch)=>{}
@@ -22,11 +26,20 @@ export const getArticulosAction = () => (dispatch) => {
 
 export const createArticuloAction = (articulo) => (dispatch) => {
     dispatch({ type: CREATE_ARTICULO_REQUEST });
-    
+
     return addArticulo(articulo).then(res => {
-        console.log(res.data.articulo);
-        dispatch({type:CREATE_ARTICULO_SUCCESS,payload:res.data.articulo});
+        dispatch({ type: CREATE_ARTICULO_SUCCESS, payload: res.data.articulo });
     }).catch(error => {
-        dispatch({ type: CREATE_ARTICULO_FAILURE,error })
+        dispatch({ type: CREATE_ARTICULO_FAILURE, error })
     });
-}
+};
+
+export const deleteArticuloAction = (id) => (dispatch) => {
+    dispatch({ type: DELETE_ARTICULO_REQUEST });
+
+    return deleteArticulo(id).then(res => {
+        dispatch({ type: DELETE_ARTICULO_SUCCESS, payload: res.data.articulo._id });
+    }).catch(error => {
+        dispatch({ type: DELETE_ARTICULO_FAILURE, error })
+    });
+};
