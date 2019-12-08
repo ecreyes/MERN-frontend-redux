@@ -6,7 +6,7 @@ class ArticuloShowPage extends React.Component {
         const articulos = this.props.articulos;
         const id = this.props.match.params.id;
         const selectArticulo = articulos.find(articulo => articulo._id === id);
-        if(selectArticulo){
+        if (selectArticulo) {
             return (
                 <div className="container">
                     <h1>Nombre del articulo:{selectArticulo.titulo}</h1>
