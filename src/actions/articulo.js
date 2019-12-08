@@ -16,7 +16,7 @@ export const getArticulosAction = () => (dispatch) => {
         }).catch(error => {
             dispatch({ type: FAILURE_ARTICULOS, error });
         });
-    }, 1000);
+    }, 500);
 };
 
 
@@ -24,7 +24,8 @@ export const createArticuloAction = (articulo) => (dispatch) => {
     dispatch({ type: CREATE_ARTICULO_REQUEST });
     
     return addArticulo(articulo).then(res => {
-        dispatch({type:CREATE_ARTICULO_SUCCESS,payload:res.data});
+        console.log(res.data.articulo);
+        dispatch({type:CREATE_ARTICULO_SUCCESS,payload:res.data.articulo});
     }).catch(error => {
         dispatch({ type: CREATE_ARTICULO_FAILURE,error })
     });

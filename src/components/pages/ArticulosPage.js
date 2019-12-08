@@ -1,13 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { getArticulosAction } from '../../actions/articulo';
 import Articulo from '../Articulo';
 
 class ArticulosPage extends React.Component {
-    componentDidMount() {
-        this.props.dispatch(getArticulosAction());
-    }
+
 
     render() {
         const articulos = this.props.articulos;
